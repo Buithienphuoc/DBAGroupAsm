@@ -5,8 +5,9 @@ session_start();
 require "vendor/autoload.php";
 require "connection.php";
 
+echo 'product id: ' . $_SESSION['product-id'] . '<br>';
+$item = $collection->findOne(array("id" => $_SESSION['product-id']));
 
-$item = $collection->findOne(array("id" => (int)$_SESSION['product-id']));
 $item = iterator_to_array($item);
 // trim mongo built-in _id field
 $item = array_slice($item, 1);

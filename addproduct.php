@@ -35,40 +35,44 @@ echo "<h1>Add product</h1>";
 
 
 // get mandatory product info
-$product_name = $_POST['product-name'];
-$minimum_price = $_POST['minimum-price'];
-$closing_time = $_POST["closing-time"];
-$product_status = "open";
-$current_maximum_bid_price = $minimum_price;
-$seller_id = $_SESSION['userid'];
 
-// add item's auction attribute to mysql
-$sql = "INSERT INTO auction_product (product_name, minimum_price, closing_time, product_status, current_maximum_bid_price, seller_id) 
+if (!empty($_POST)){
+    $product_name = $_POST['product-name'];
+    $minimum_price = $_POST['minimum-price'];
+    $closing_time = $_POST["closing-time"];
+    $product_status = "open";
+    $current_maximum_bid_price = $minimum_price;
+    $seller_id = $_SESSION['userid'];
+
+    // add item's auction attribute to mysql
+    $sql = "INSERT INTO auction_product (product_name, minimum_price, closing_time, product_status, current_maximum_bid_price, seller_id) 
         VALUES (:product_name, :minimum_price, :closing_time, :product_status, :current_maximum_bid_price, :seller_id)";
-$statement = $pdo->prepare($sql);
+    $statement = $pdo->prepare($sql);
 
-$statement->bindParam(":product_name", $product_name, PDO::PARAM_STR);
-$statement->bindParam(":minimum_price", $minimum_price, PDO::PARAM_STR);
-$statement->bindParam(":closing_time", $closing_time, PDO::PARAM_STR);
-$statement->bindParam(":product_status", $product_status, PDO::PARAM_STR);
-$statement->bindParam(":current_maximum_bid_price", $current_maximum_bid_price, PDO::PARAM_STR);
-$statement->bindParam(":seller_id", $seller_id, PDO::PARAM_STR);
+    $statement->bindParam(":product_name", $product_name, PDO::PARAM_STR);
+    $statement->bindParam(":minimum_price", $minimum_price, PDO::PARAM_STR);
+    $statement->bindParam(":closing_time", $closing_time, PDO::PARAM_STR);
+    $statement->bindParam(":product_status", $product_status, PDO::PARAM_STR);
+    $statement->bindParam(":current_maximum_bid_price", $current_maximum_bid_price, PDO::PARAM_STR);
+    $statement->bindParam(":seller_id", $seller_id, PDO::PARAM_STR);
+
+    try {
+        $statement->execute();
+        $newproductid = $pdo->lastInsertId();
+        echo "last inserted id " . $newproductid . "<br>";
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    }
 
 
-try {
-    $statement->execute();
-} catch (PDOException $e) {
-    echo $e->getMessage();
+    // add item attribute to mongodb
+    $product = array();
+    foreach (array_combine($_POST["attributeName"], $_POST["attributeValue"]) as $key => $value) {
+        $data[$key] = $value;
+    }
+
+    $collection->insertOne($data);
 }
-
-// add item attribute to mongodb
-$product = array();
-foreach(array_combine($_POST["attributeName"], $_POST["attributeValue"]) as $key=>$value){
-    $data[$key] = $value;
-}
-
-$collection->insertOne($data);
-
 ?>
 
 
