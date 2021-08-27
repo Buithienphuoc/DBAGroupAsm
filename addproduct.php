@@ -67,6 +67,8 @@ if (!empty($_POST)){
 
     // add item attribute to mongodb
     $product = array();
+    $data = array();
+    $data["id "] = $newproductid;
     foreach (array_combine($_POST["attributeName"], $_POST["attributeValue"]) as $key => $value) {
         $data[$key] = $value;
     }
