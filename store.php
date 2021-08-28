@@ -7,6 +7,14 @@
     }
 
     echo "<h1>Store page for ", $_SESSION["firstname"] . " " . $_SESSION["lastname"], "<h1>";
+
+    if(isset($_POST['get-product-id']))
+    {
+        $_SESSION['product-id'] = $_POST['product-id'];
+        header("location: productdetails.php");
+        
+    }
+
 ?>
 
 
@@ -16,21 +24,9 @@
     <input type="submit" id="get-product-id" name="get-product-id" value="Get product details">
 </form>
 
+
 <a href="addproduct.php">Create auction</a>
 <a href="logout.php">Logout</a>
 <a href="openauction.php">View open auctions</a>
 <a href="myauction.php">My auction</a>
 <a href="mybid.php">My bid</a>
-
-
-<?php
-    if(isset($_POST['get-product-id']))
-    {
-        $_SESSION['product-id'] = $_POST['product-id'];
-        header("location: productdetails.php");
-        
-    }
-?>
-
-
-
