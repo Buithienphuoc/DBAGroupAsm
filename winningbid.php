@@ -7,13 +7,16 @@
         header("location: login.php");
     }
 
-    echo $_SESSION["firstname"] . " " . $_SESSION["lastname"], " bid page";
+    echo $_SESSION["firstname"] . " " . $_SESSION["lastname"], " winning bids";
 ?>
 
 <?php
 
 $userid = $_SESSION['userid'];
-$sql = "SELECT * FROM transaction_history WHERE buyer_id=:buyer_id;";
+$sql = "SELECT * FROM transaction_history t JOIN auction_product p ON t.product_id = p.id 
+        WHERE buyer_id=:buyer_id AND t.bid_price >= p.current_maximum_bid_price 
+        ORDER BY t.recorded_at DESC;";
+
 $statement = $pdo->prepare($sql);
 
 $statement->bindParam(":buyer_id", $userid, PDO::PARAM_STR);
@@ -32,7 +35,7 @@ catch(PDOException $e){
 
     <!-- user has no bid -->
     <?php if (count($result) == 0) : ?>
-        <p>User has no bid in system yet.</p>
+        <p>You haven't won any bid yet.</p>
     <?php endif; ?>
 
     <?php if (count($result) > 0) : ?>

@@ -16,6 +16,10 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true) {
     header("location: store.php");
 }
 
+if (isset($_POST["login"])){
+    header("location: login.php");
+}
+
 if (isset($_POST["register"])) {
     $phone = addslashes($_POST['phone']);
 
@@ -95,7 +99,7 @@ if (isset($_POST["register"])) {
                     echo "<pre>";
                     echo print_r($insert_statement->debugDumpParams());
                     echo "</pre>";
-                    // header("location: store.php");
+                    header("location: login.php");
                 } catch (PDOException $e) {
                     echo $e->getMessage();
                 }
@@ -103,7 +107,7 @@ if (isset($_POST["register"])) {
         }
     }
 } else {
-    echo "POST NOT SET<br>";
+    // echo "POST NOT SET<br>";
 }
 ?>
 

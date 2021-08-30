@@ -15,13 +15,13 @@
     // user DESC as default
     $order = isset($_POST['asc']) ? 'ASC' : 'DESC';
     if (isset($_POST['sort-closing-time'])){
-        $sql = "SELECT * FROM auction_product ORDER BY closing_time " . $order;
+        $sql = "SELECT * FROM auction_product WHERE product_status='open' ORDER BY closing_time " . $order;
     }
     elseif (isset($_POST['sort-max-bid'])){
-        $sql = "SELECT * FROM auction_product ORDER BY current_maximum_bid_price " . $order;
+        $sql = "SELECT * FROM auction_product WHERE product_status='open' ORDER BY current_maximum_bid_price " . $order;
     }
     elseif (isset($_POST['sort-max-bid'])){
-        $sql = "SELECT * FROM auction_product ORDER BY current_maximum_bid_price " . $order;
+        $sql = "SELECT * FROM auction_product WHERE product_status='open' ORDER BY current_maximum_bid_price " . $order;
     }
 
     $statement = $pdo->prepare($sql);

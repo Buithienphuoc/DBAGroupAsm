@@ -1,4 +1,5 @@
 <?php
+    require "connection.php";
     session_start();
 
     // redirect to login page if not signed in
@@ -17,7 +18,6 @@
 
 ?>
 
-
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
     <label for="product-id">Enter a product id: </label>
     <input type="text" id="product-id" name="product-id">
@@ -28,5 +28,5 @@
 <a href="addproduct.php">Create auction</a>
 <a href="logout.php">Logout</a>
 <a href="openauction.php">View open auctions</a>
-<a href="myauction.php">My auction</a>
-<a href="mybid.php">My bid</a>
+<a href="winningbid.php">My won bid</a>
+<a href="mybid.php">Bid history</a>
