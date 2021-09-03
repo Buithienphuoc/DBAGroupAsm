@@ -1,3 +1,4 @@
+
 <?php
 require "connection.php";
 
@@ -88,7 +89,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">
                 <label>Phone/Email</label>
-                <input type="text" name="phone" class="form-control <?php echo (!empty($error)) ? 'is-invalid' : ''; ?>" value="<?php echo isset($_POST["phone"]) ? $_POST["phone"] : ''; ?>">
+                <input type="text" name="phone" class="form-control
+                <?php echo (!empty($error)) ? 'is-invalid' : ''; ?>" value="<?php
+                echo isset($_POST["phone"]) ? $_POST["phone"] : '';
+                ?>">
                 <span class="invalid-feedback"><?php echo $error; ?></span>
             </div>
             <div class="form-group">

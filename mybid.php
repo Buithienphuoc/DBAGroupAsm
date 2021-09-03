@@ -43,7 +43,8 @@ catch(PDOException $e){
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($result as $row) : array_map('htmlentities', $row); ?>
+                <?php
+                foreach ($result as $row) : array_map('htmlentities', $row); ?>
                     <tr>
                         <td><?php echo implode('</td><td>', $row); ?></td>
                     </tr>

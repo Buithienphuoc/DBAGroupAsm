@@ -12,8 +12,6 @@ echo "<h1>Store page for ", $_SESSION["firstname"] . " " . $_SESSION["lastname"]
 
 <?php
 
-print_r($_POST);
-
 if (!(isset($_POST['sort-by']) || isset($_POST['desc']))) {
     $sql = "SELECT * FROM auction_product ";
 } else {
@@ -24,8 +22,7 @@ if (!(isset($_POST['sort-by']) || isset($_POST['desc']))) {
         $sql = "SELECT * FROM auction_product WHERE product_status='open' ORDER BY closing_time " . $order;
     } elseif ($_POST['sort-by'] == "sort-max-bid") {
         $sql = "SELECT * FROM auction_product WHERE product_status='open' ORDER BY current_maximum_bid_price " . $order;
-    }
-    // TODO: sort by number of bid count
+    } // TODO: sort by number of bid count
     elseif ($_POST['sort-by'] == "sort-bid-count") {
         $sql = "SELECT t.product_id, p.current_maximum_bid_price, p.closing_time, COUNT(product_id) AS bid_count
                 FROM transaction_history t JOIN auction_product p ON t.product_id = p.id
@@ -46,41 +43,53 @@ try {
 <html>
 
 <body>
-    <?php echo "OPEN AUCTION\n"; ?>
+<?php echo "OPEN AUCTION\n"; ?>
 
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <label for="sort-by">SORT BY:</label>
-        <select name="sort-by" id="sort-by">
-            <option value="sort-closing-time">Closing time</option>
-            <option value="sort-max-bid">Max bid</option>
-            <option value="sort-bid-count">Bid count</option>
-        </select>
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+    <label for="sort-by">SORT BY:</label>
+    <select name="sort-by" id="sort-by">
+        <option value="sort-closing-time">Closing time</option>
+        <option value="sort-max-bid">Max bid</option>
+        <option value="sort-bid-count">Bid count</option>
+    </select>
 
-        <label for="sort-order">ORDER:</label>
-        <select name="desc" id="sort-order">
-            <option value="DESC">DESC</option>
-            <option value="ASC">ASC</option>
-        </select>
+    <label for="sort-order">ORDER:</label>
+    <select name="desc" id="sort-order">
+        <option value="DESC">DESC</option>
+        <option value="ASC">ASC</option>
+    </select>
 
-        <button type="submit">Submit</button>
-    </form>
+    <button type="submit">Submit</button>
+</form>
 
-    <?php if (count($result) > 0) : ?>
-        <table>
-            <thead>
-                <tr>
-                    <th><?php echo implode('</th><th>', array_keys(current($result))); ?></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($result as $row) : array_map('htmlentities', $row); ?>
-                    <tr>
-                        <td><?php echo implode('</td><td>', $row); ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    <?php endif; ?>
+<?php if (count($result) > 0) : ?>
+    <table>
+        <thead>
+        <tr>
+            <th>
+                <?php
+                echo implode('</th><th>', array_keys(current($result)));
+                ?>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+            <?php
+            foreach ($result as $row) : array_map('htmlentities', $row);
+            ?>
+            <tr>
+                <td>
+                    <?php
+                    echo implode('</td><td>', $row);
+                    ?>
+                </td>
+            </tr>
+        <?php
+            endforeach;
+            ?>
+        </tbody>
+    </table>
+<?php endif; ?>
 </body>
 
 </html>
