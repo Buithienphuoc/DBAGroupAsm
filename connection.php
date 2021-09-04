@@ -3,10 +3,10 @@
 require "vendor/autoload.php";
 
 # Connect to mysql
-$host = "localhost:3306";
+$host = "localhost";
 $dbname = "assignment_1";
 $mysql_username = "root";
-$mysql_password = "hacker123";
+$mysql_password = "";
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $mysql_username, $mysql_password);
