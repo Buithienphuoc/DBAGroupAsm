@@ -4,9 +4,9 @@ require "vendor/autoload.php";
 
 # Connect to mysql
 $host = "localhost:3306";
-$dbname = "auction";
+$dbname = "assignment_1";
 $mysql_username = "root";
-$mysql_password = "Slence2@3#0)0";
+$mysql_password = "";
 
 try{
 $pdo = new PDO("mysql:host=$host;dbname=$dbname", $mysql_username, $mysql_password);
