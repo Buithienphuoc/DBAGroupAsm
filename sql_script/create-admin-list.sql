@@ -9,3 +9,5 @@ create table admin_list
     constraint admin_list_username_uindex
         unique (username)
 );
+
+insert into admin_list (id, username, password) values (1, "admin", "admin");
