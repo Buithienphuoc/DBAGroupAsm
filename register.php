@@ -21,23 +21,17 @@ if (isset($_POST["login"])){
 }
 
 if (isset($_POST["register"])) {
+
+    // TODO: apply sanitize filter https://www.php.net/manual/en/filter.filters.sanitize.php
     $phone = addslashes($_POST['phone']);
-
     $email = addslashes($_POST['email']);
-
     $firstname = addslashes($_POST["firstname"]);
-
     $lastname = addslashes($_POST["lastname"]);
-
     $address = addslashes($_POST["address"]);
     $city = addslashes($_POST["city"]);
     $country = addslashes($_POST["country"]);
-
     $branch_id = addslashes(($_POST['branch-id']));
-
-    // TODO: sanitize input url
     $profile_pic = addslashes($_POST["profile-pic"]);
-
     $password = addslashes($_POST['password']);
     $repeat_password = addslashes($_POST['repeat-password']);
 
@@ -50,8 +44,6 @@ if (isset($_POST["register"])) {
     if (empty($password)) {
         array_push($errors, "Password is ");
     }
-
-    // TODO: add empty errors for remaning fields
 
     if ($password != $repeat_password) {
         array_push($errors, "The two passwords do not match");
@@ -106,8 +98,6 @@ if (isset($_POST["register"])) {
             }
         }
     }
-} else {
-    // echo "POST NOT SET<br>";
 }
 ?>
 
