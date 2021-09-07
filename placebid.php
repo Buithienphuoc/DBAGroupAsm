@@ -14,7 +14,8 @@ $get_statement->bindParam("productid", $_SESSION['product-id'], PDO::PARAM_STR);
 try {
     $get_statement->execute();
     $result = $get_statement->fetchAll(PDO::FETCH_ASSOC);
-    $current_price = $result['current_maximum_bid_price'];
+    $current_price = $result[0]['current_maximum_bid_price'];
+
     $columns = array_keys($result);
 } catch (PDOException $e) {
     echo $e->getMessage();
@@ -28,28 +29,29 @@ if (isset($_POST["bid"])){
     }
     else{
         // INSERT NEW TRANSACTION HISTORY AND UPDATE CURRENT MAX BID PRICE
-        $insert_query = "INSERT INTO transaction_history VALUES (:product-id, :buyer-id, :bid-price, :recorded-at)";
-        $update_query = "UPDATE auction_product SET current_maximum_bid_price=:user-bid WHERE id=:product-id";
+        $insert_query = "INSERT INTO transaction_history (product_id, buyer_id, bid_price, recorded_at) VALUES (:product_id, :buyer_id, :bid_price, :recorded_at)";
+        $update_query = "UPDATE auction_product SET current_maximum_bid_price=:user_bid WHERE id=:product_id";
+
+        $date =  date("Y-m-d");
 
         $insert_statement = $pdo->prepare($insert_query);
         $update_statement = $pdo->prepare($update_query);
 
-        $insert_statement->bindParam("product-id", $_SESSION['product-id'], PDO::PARAM_STR);
-        $insert_statement->bindParam("buyer-id", $_SESSION['userid'], PDO::PARAM_STR);
-        $insert_statement->bindParam("bid-price", $user_bid_price, PDO::PARAM_STR);
-        $insert_statement->bindParam("recorded-at", date("d-m-Y H:i:s"), PDO::PARAM_STR);
+        $insert_statement->bindParam("product_id", $_SESSION['product-id'], PDO::PARAM_STR);
+        $insert_statement->bindParam("buyer_id", $_SESSION['userid'], PDO::PARAM_STR);
+        $insert_statement->bindParam("bid_price", $user_bid_price, PDO::PARAM_STR);
+        $insert_statement->bindParam("recorded_at", $date, PDO::PARAM_STR);
 
-        $update_statement->bindParam("user-bid", $user_bid_price, PDO::PARAM_STR);
-        $update_statement->bindParam("product-id", $_SESSION['product-id'], PDO::PARAM_STR);
+        $update_statement->bindParam("user_bid", $user_bid_price, PDO::PARAM_STR);
+        $update_statement->bindParam("product_id", $_SESSION['product-id'], PDO::PARAM_STR);
 
-        try{
-            $insert_statement->execute();
-            $update_statement->execute();
-            header("location: openauction.php");
-        }
-        catch (PDOException $e){
-            echo $e->getMessage();
-        }
+        $insert_statement->execute();
+        $update_statement->execute();
+        header("location: openauction.php");
+        // }
+        // catch (PDOException $e){
+        //     echo $e->getMessage();
+        // }
 
     }
 

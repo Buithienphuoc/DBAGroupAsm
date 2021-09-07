@@ -46,30 +46,29 @@ try {
 
 ?>
 
+<html>
 
+<body>
+    <?php echo "<h2>OPEN AUCTION</h2>\n"; ?>
 
-<?= template_header('Read') ?>
-<?php echo "<h2>OPEN AUCTION</h2>\n"; ?>
-
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-    <label for="sort-by">SORT BY:</label>
-    <select name="sort-by" id="sort-by">
-        <option value="sort-closing-time" <?php if ($sortby == "sort-closing-time") { ?> selected <?php } ?>>Closing time</option>
-        <option value="sort-max-bid" <?php if ($sortby == "sort-max-bid") { ?> selected <?php } ?>>Max bid</option>
-        <option value="sort-bid-count" <?php if ($sortby == "sort-bid-count") { ?> selected <?php } ?>>Bid count</option>
-    </select>
-
-    <label for="sort-order">ORDER:</label>
-    <select name="sort-order" id="sort-order">
-        <option value="desc" <?php if ($orderby == "desc") { ?> selected <?php } ?>>DESC</option>
-        <option value="asc" <?php if ($orderby == "asc") { ?> selected <?php } ?>>ASC</option>
-    </select>
-
-    <button type="submit">Submit</button>
-</form>
-
-<div class="content read">
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <label for="sort-by">SORT BY:</label>
+        <select name="sort-by" id="sort-by">
+            <option value="sort-closing-time" <?php if ($sortby == "sort-closing-time") { ?> selected <?php } ?>>Closing time</option>
+            <option value="sort-max-bid" <?php if ($sortby == "sort-max-bid") { ?> selected <?php } ?>>Max bid</option>
+            <option value="sort-bid-count" <?php if ($sortby == "sort-bid-count") { ?> selected <?php } ?>>Bid count</option>
+        </select>
+
+        <label for="sort-order">ORDER:</label>
+        <select name="sort-order" id="sort-order">
+            <option value="desc" <?php if ($orderby == "desc") { ?> selected <?php } ?>>DESC</option>
+            <option value="asc" <?php if ($orderby == "asc") { ?> selected <?php } ?>>ASC</option>
+        </select>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <form  action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <?php if (count($result) > 0) : ?>
             <table>
                 <thead>
@@ -97,5 +96,6 @@ try {
             </table>
         <?php endif; ?>
     </form>
-</div>
-<?= template_footer() ?>
+</body>
+
+</html>
