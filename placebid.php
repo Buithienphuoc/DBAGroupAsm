@@ -29,23 +29,23 @@ if (isset($_POST["bid"])){
     }
     else{
         // INSERT NEW TRANSACTION HISTORY AND UPDATE CURRENT MAX BID PRICE
-        $insert_query = "INSERT INTO transaction_history (product_id, buyer_id, bid_price, recorded_at) VALUES (:product_id, :buyer_id, :bid_price, :recorded_at)";
-        $update_query = "UPDATE auction_product SET current_maximum_bid_price=:user_bid WHERE id=:product_id";
+        // $insert_query = "INSERT INTO transaction_history (product_id, buyer_id, bid_price, recorded_at) VALUES (:product_id, :buyer_id, :bid_price, :recorded_at)";
+        $update_query = "UPDATE auction_product SET current_maximum_bid_price=:user_bid, buyer_id=:buyerid WHERE id=:product_id";
 
         $date =  date("Y-m-d");
 
-        $insert_statement = $pdo->prepare($insert_query);
+        // $insert_statement = $pdo->prepare($insert_query);
         $update_statement = $pdo->prepare($update_query);
-
-        $insert_statement->bindParam("product_id", $_SESSION['product-id'], PDO::PARAM_STR);
-        $insert_statement->bindParam("buyer_id", $_SESSION['userid'], PDO::PARAM_STR);
-        $insert_statement->bindParam("bid_price", $user_bid_price, PDO::PARAM_STR);
-        $insert_statement->bindParam("recorded_at", $date, PDO::PARAM_STR);
+        // $insert_statement->bindParam("product_id", $_SESSION['product-id'], PDO::PARAM_STR);
+        // $insert_statement->bindParam("buyer_id", $_SESSION['userid'], PDO::PARAM_STR);
+        // $insert_statement->bindParam("bid_price", $user_bid_price, PDO::PARAM_STR);
+        // $insert_statement->bindParam("recorded_at", $date, PDO::PARAM_STR);
 
         $update_statement->bindParam("user_bid", $user_bid_price, PDO::PARAM_STR);
         $update_statement->bindParam("product_id", $_SESSION['product-id'], PDO::PARAM_STR);
+        $update_statement->bindParam("buyerid", $_SESSION['userid'], PDO::PARAM_STR);
 
-        $insert_statement->execute();
+        // $insert_statement->execute();
         $update_statement->execute();
         header("location: openauction.php");
         // }
