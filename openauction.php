@@ -21,12 +21,13 @@ if (!($sortby || $orderby)) {
     $order = ($orderby == "desc") ? 'DESC' : 'ASC';
 
     if ($sortby == "sort-closing-time") {
-        $sql = "SELECT * FROM auction_product WHERE product_status='open' ORDER BY closing_time " . $order;
+        $sql = "SELECT * FROM auction_product WHERE product_status='open' AND seller_id!=:seller_id ORDER BY closing_time " . $order;
     } elseif ($sortby == "sort-max-bid") {
-        $sql = "SELECT * FROM auction_product WHERE product_status='open' ORDER BY current_maximum_bid_price " . $order;
+        $sql = "SELECT * FROM auction_product WHERE product_status='open' AND seller_id!=:seller_id  ORDER BY current_maximum_bid_price " . $order;
     } elseif ($sortby == "sort-bid-count") {
         $sql = "SELECT t.product_id, p.current_maximum_bid_price, p.closing_time, COUNT(product_id) AS bid_count
                 FROM transaction_history t JOIN auction_product p ON t.product_id = p.id
+                WHERE product_status='open' AND seller_id!=:seller_id 
                 GROUP BY product_id ORDER BY bid_count " . $order;
     }
 }
@@ -37,6 +38,7 @@ if (isset($_POST['bid'])) {
 }
 
 $statement = $pdo->prepare($sql);
+$statement->bindParam("seller_id", $_SESSION['userid'], PDO::PARAM_STR);
 try {
     $statement->execute();
     $result = $statement->fetchAll(PDO::FETCH_ASSOC);

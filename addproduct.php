@@ -59,7 +59,7 @@ if (!empty($_POST)){
     try {
         $statement->execute();
         $newproductid = $pdo->lastInsertId();
-        echo "last inserted id " . $newproductid . "<br>";
+        // echo "last inserted id " . $newproductid . "<br>";
     } catch (PDOException $e) {
         echo $e->getMessage();
     }
@@ -85,8 +85,8 @@ if (!empty($_POST)){
     <label for="minimum-price">Minimum price</label>
     <input type="text" name="minimum-price" required><br>
 
-    <label for="product-name">Closing time</label>
-    <input type="text" name="closing-time" required><br>
+    <label for="closing-time">Closing time</label>
+    <input type="date" name="closing-time" required><br>
 
     <label for="product-attribute">Enter additional product attributes (optional)</label>
     <table name="product-attribute">
