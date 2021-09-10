@@ -16,14 +16,17 @@ if (isset($_GET['id'])) {
         $seller_id = $_POST['seller_id'] ?? '';
         $buyer_id = $_POST['buyer_id'] ?? '';
 
-        // Update the record
+        // Update the record:
         $stmt = $pdo->prepare('UPDATE auction_product SET product_status = ? WHERE id = ?');
-        $update_seller = $pdo->prepare('UPDATE customer_account SET balance = balance + ? WHERE id = ?');
+        $update_seller = $pdo->prepare('UPDATE customer_account SET balance = balance + ? WHERE id = ? ');
         $update_buyer = $pdo->prepare('UPDATE customer_account SET balance = balance - ? WHERE id = ?');
         $stmt->execute([$product_status, $_GET['id']]);
-        var_dump($current_maximum_bid_price);
         $update_seller->execute([$current_maximum_bid_price, $seller_id]);
         $update_buyer->execute([$current_maximum_bid_price, $buyer_id]);
+        // Insert transaction:
+        $transaction = $pdo->prepare('INSERT INTO transaction_history (product_id, buyer_id, bid_price, recorded_at) VALUES (?, ?, ?, ?)');
+        $transaction->execute([$id, $buyer_id, $current_maximum_bid_price, date("Y-m-d")]);
+
         $msg = 'Updated Successfully!';
     }
     // Get the contact from the contacts table
@@ -63,9 +66,11 @@ if (isset($_GET['id'])) {
         <select name="product_status" id="product_status">
             <option name="inactive" value="Inactive">Inactive</option>
         </select>
-        <input type="submit" value="Update" onclick="location.href='read_product.php';">
+        <?php if ($product['product_status'] == "Active"): ?>
+            <input type="submit" value="Update" onclick="location.href='read_product.php';">
+        <?php endif; ?>
     </form>
-
+    <a type="button" class="btn btn-danger" href="read_product.php">Back to product list</a>
     <?php if ($msg): ?>
         <p><?=$msg?></p>
     <?php endif; ?>

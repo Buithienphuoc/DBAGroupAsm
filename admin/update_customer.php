@@ -49,6 +49,7 @@ if (isset($_GET['id'])) {
         <input type="text" name="balance"  value="<?=$customer['balance']?>" id="title">
         <input type="submit" value="Update">
     </form>
+    <a type="button" class="btn btn-danger" href="read_customer.php">Back to customer list</a>
     <?php if ($msg): ?>
         <p><?=$msg?></p>
     <?php endif; ?>

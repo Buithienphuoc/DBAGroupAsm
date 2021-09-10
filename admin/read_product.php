@@ -12,7 +12,7 @@ $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] :
 $records_per_page = 5;
 
 // Prepare the SQL statement and get records from our contacts table, LIMIT will determine the page
-$stmt = $pdo->prepare('SELECT * FROM auction_product WHERE CURRENT_TIMESTAMP >= closing_time ORDER BY product_status = \'Active\' DESC ');
+$stmt = $pdo->prepare('SELECT * FROM auction_product WHERE CURRENT_TIMESTAMP >= closing_time AND buyer_id IS NOT NULL ORDER BY product_status = \'Active\' DESC ');
 $stmt->bindValue(':current_page', ($page-1)*$records_per_page, PDO::PARAM_INT);
 $stmt->bindValue(':record_per_page', $records_per_page, PDO::PARAM_INT);
 $stmt->execute();
