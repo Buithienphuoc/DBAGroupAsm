@@ -191,3 +191,75 @@ body {
 .delete .yesno a:hover {
     background-color: #32a367;
 }
+
+
+h1{
+    margin-top:30px;
+    color:#4b78c1;
+    font-size:24px;
+}
+
+form{
+    padding:10px;
+}
+
+input[type="submit"]{
+    color:#899ec1;
+    padding:8px;
+    border-radius:6px;
+    border:1px #899ec1 solid;
+    background-color:#ffffff;
+}
+input[type="submit"]:hover{
+    color:#576275;
+    padding:8px;
+    border-radius:6px;
+    border:1px #576275 solid;
+    cursor:pointer;
+}
+
+
+input[type="text"]{
+    color:#899ec1;
+    padding:6px;
+    border-radius:6px;
+    border:1px #899ec1 solid;
+    background-color:#ffffff;
+}
+input[type="text"]:hover{
+    color:#576275;
+    padding:6px;
+    border-radius:6px;
+    border:1px #576275 solid;
+    cursor:pointer;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+  
+li {
+    float: left;
+}
+  
+li a {
+    display: block;
+    padding: 8px;
+}
+
+select {
+    width: 10%;
+    padding: 16px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+}
+
+label {
+    display: inline-block;
+    width: 200px;
+    text-align: right;
+}

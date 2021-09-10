@@ -31,12 +31,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == false) {
     header("location: login.php");
 }
 
-echo "<h1>Add product</h1>";
-
-
 // get mandatory product info
 
-if (!empty($_POST)){
+if (!empty($_POST)) {
     $product_name = $_POST['product-name'];
     $minimum_price = $_POST['minimum-price'];
     $closing_time = $_POST["closing-time"];
@@ -77,28 +74,53 @@ if (!empty($_POST)){
 }
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
 
-<form method="POST" action="addproduct.php">
-    <label for="product-name">Enter product name</label>
-    <input type="text" name="product-name" required><br>
+<head>
+    <meta charset="UTF-8">
+    <title>Add Product</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            font: 14px sans-serif;
+        }
 
-    <label for="minimum-price">Minimum price</label>
-    <input type="text" name="minimum-price" required><br>
+        .wrapper {
+            width: 360px;
+            padding: 20px;
+        }
+    </style>
+</head>
 
-    <label for="closing-time">Closing time</label>
-    <input type="date" name="closing-time" required><br>
+<body>
+    <ul>
+        <li><a href="store.php">Back</a></li>
+    </ul>
 
-    <label for="product-attribute">Enter additional product attributes (optional)</label>
-    <table name="product-attribute">
-        <tr>
-            <th>#</th>
-            <th>Attribute</th>
-            <th>Value</th>
-        </tr>
-        <tbody id="tbody"></tbody>
-    </table>
+    <h1 style="text-align:center;">Add product</h1>
 
-    <button type="button" onclick="addAttribute();">Add Attribute</button>
-    <br>
-    <button type="submit">Add Product</button>
-</form>
+
+    <form method="POST" action="addproduct.php">
+        <label for="product-name">Product name</label>
+        <input type="text" name="product-name" required><br>
+
+        <label for="minimum-price">Minimum price</label>
+        <input type="text" name="minimum-price" required><br>
+
+        <label for="closing-time">Closing time</label>
+        <input type="date" name="closing-time" required><br>
+
+        <label for="product-attribute">Additional attributes</label>
+        <table name="product-attribute">
+            <tbody id="tbody"></tbody>
+        </table>
+
+        <button type="button" onclick="addAttribute();">Add Attribute</button>
+        <br>
+        <button type="submit">Add Product</button>
+    </form>
+</body>
+
+</html>

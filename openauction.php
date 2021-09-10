@@ -49,55 +49,80 @@ try {
 ?>
 
 
+<!DOCTYPE html>
+<html lang="en">
 
-<?= template_header('Read') ?>
-<?php echo "<h2>OPEN AUCTION</h2>\n"; ?>
+<head>
+    <meta charset="UTF-8">
+    <title>Store</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            font: 14px sans-serif;
+        }
 
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-    <label for="sort-by">SORT BY:</label>
-    <select name="sort-by" id="sort-by">
-        <option value="sort-closing-time" <?php if ($sortby == "sort-closing-time") { ?> selected <?php } ?>>Closing time</option>
-        <option value="sort-max-bid" <?php if ($sortby == "sort-max-bid") { ?> selected <?php } ?>>Max bid</option>
-        <option value="sort-bid-count" <?php if ($sortby == "sort-bid-count") { ?> selected <?php } ?>>Bid count</option>
-    </select>
+        .wrapper {
+            width: 360px;
+            padding: 20px;
+        }
+    </style>
+</head>
 
-    <label for="sort-order">ORDER:</label>
-    <select name="sort-order" id="sort-order">
-        <option value="desc" <?php if ($orderby == "desc") { ?> selected <?php } ?>>DESC</option>
-        <option value="asc" <?php if ($orderby == "asc") { ?> selected <?php } ?>>ASC</option>
-    </select>
+<body>
+    <ul>
+        <li><a href="store.php">Back</a></li>
+    </ul>
 
-    <button type="submit">Submit</button>
-</form>
+    <h1 style="text-align:center;">Open auctions</h1>
 
-<div class="content read">
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <?php if (count($result) > 0) : ?>
-            <table>
-                <thead>
-                    <tr>
-                        <th>
-                            <?php
-                            echo implode('</th><th>', array_keys(current($result)));
-                            ?>
-                        </th>
-                        <th>Place bid</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($result as $row) : array_map('htmlentities', $row); ?>
-                        <tr>
-                            <td>
-                                <?php
-                                echo implode('</td><td>', $row);
-                                ?>
-                            </td>
-                            <td><button type="submit" name="bid" value="<?php echo $row["id"] ?>">Bid</button></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        <?php endif; ?>
+        <label for="sort-by">SORT BY:</label>
+        <select name="sort-by" id="sort-by">
+            <option value="sort-closing-time" <?php if ($sortby == "sort-closing-time") { ?> selected <?php } ?>>Closing time</option>
+            <option value="sort-max-bid" <?php if ($sortby == "sort-max-bid") { ?> selected <?php } ?>>Max bid</option>
+            <option value="sort-bid-count" <?php if ($sortby == "sort-bid-count") { ?> selected <?php } ?>>Bid count</option>
+        </select>
+
+        <label for="sort-order">ORDER:</label>
+        <select name="sort-order" id="sort-order">
+            <option value="desc" <?php if ($orderby == "desc") { ?> selected <?php } ?>>DESC</option>
+            <option value="asc" <?php if ($orderby == "asc") { ?> selected <?php } ?>>ASC</option>
+        </select>
+
+        <button type="submit">Sort</button>
     </form>
-</div>
-<?= template_footer() ?>
+
+    <div class="content read">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <?php if (count($result) > 0) : ?>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                <?php
+                                echo implode('</th><th>', array_keys(current($result)));
+                                ?>
+                            </th>
+                            <th>Place bid</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($result as $row) : array_map('htmlentities', $row); ?>
+                            <tr>
+                                <td>
+                                    <?php
+                                    echo implode('</td><td>', $row);
+                                    ?>
+                                </td>
+                                <td><button type="submit" name="bid" value="<?php echo $row["id"] ?>">Bid</button></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php endif; ?>
+        </form>
+    </div>
+</body>
+
+</html>
