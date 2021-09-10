@@ -24,8 +24,8 @@ if (isset($_GET['id'])) {
         $update_seller->execute([$current_maximum_bid_price, $seller_id]);
         $update_buyer->execute([$current_maximum_bid_price, $buyer_id]);
         // Insert transaction:
-        $transaction = $pdo->prepare('INSERT INTO transaction_history (product_id, buyer_id, bid_price, recorded_at) VALUES (?, ?, ?, ?)');
-        $transaction->execute([$id, $buyer_id, $current_maximum_bid_price, date("Y-m-d")]);
+        $transaction = $pdo->prepare('INSERT INTO transaction_history (product_id, buyer_id, bid_price, recorded_at, status) VALUES (?, ?, ?, ?, ?)');
+        $transaction->execute([$id, $buyer_id, $current_maximum_bid_price, date("Y-m-d"), "Success"]);
 
         $msg = 'Updated Successfully!';
     }
@@ -67,7 +67,7 @@ if (isset($_GET['id'])) {
             <option name="inactive" value="Inactive">Inactive</option>
         </select>
         <?php if ($product['product_status'] == "Active"): ?>
-            <input type="submit" value="Update" onclick="location.href='read_product.php';">
+            <input type="submit" value="Update">
         <?php endif; ?>
     </form>
     <a type="button" class="btn btn-danger" href="read_product.php">Back to product list</a>
