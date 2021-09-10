@@ -26,7 +26,7 @@ $num_contacts = $pdo->query('SELECT COUNT(*) FROM customer_account')->fetchColum
 <?=template_header('Read')?>
 
 <div class="content read">
-    <h2>Read Contacts</h2>
+    <h2>Customer lists</h2>
     <table>
         <thead>
         <tr>
