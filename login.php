@@ -17,6 +17,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['register'])) {
         header("location: register.php");
     }
+    
+    if (isset($_POST['login-admin'])) {
+        header("location: admin/login_admin.php");
+    }
+
     $phone = $password = $error = "";
 
     // non-empty username and password
@@ -104,6 +109,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" name="login" value="Login">
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" name="login-admin" value="Admin login">
             </div>
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" name="register" value="Register">
