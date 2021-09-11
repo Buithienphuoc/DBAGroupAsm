@@ -37,7 +37,7 @@ if (!empty($_POST)) {
     $product_name = $_POST['product-name'];
     $minimum_price = $_POST['minimum-price'];
     $closing_time = $_POST["closing-time"];
-    $product_status = "open";
+    $product_status = "Active";
     $current_maximum_bid_price = $minimum_price;
     $seller_id = $_SESSION['userid'];
 
