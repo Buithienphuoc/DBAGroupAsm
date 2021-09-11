@@ -16,7 +16,7 @@ if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true) {
     header("location: store.php");
 }
 
-if (isset($_POST["login"])){
+if (isset($_POST["login"])) {
     header("location: login.php");
 }
 
@@ -107,6 +107,7 @@ if (isset($_POST["register"])) {
     <title>Register</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -115,6 +116,9 @@ if (isset($_POST["register"])) {
         print_r($sql_errors);
     }
     ?>
+
+    <h1 style="text-align:center;">Register</h1>
+
 
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 

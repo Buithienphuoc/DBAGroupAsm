@@ -7,7 +7,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] == false) {
     header("location: login.php");
 }
 
-$get_query = "SELECT * FROM auction_product WHERE id=:productid";
+$get_query = "SELECT id, product_name, current_maximum_bid_price, closing_time FROM auction_product WHERE id=:productid";
 $get_statement = $pdo->prepare($get_query);
 $get_statement->bindParam("productid", $_SESSION['product-id'], PDO::PARAM_STR);
 
@@ -21,13 +21,12 @@ try {
     echo $e->getMessage();
 }
 
-if (isset($_POST["bid"])){
+if (isset($_POST["bid"])) {
     $user_bid_price = filter_var($_POST['user-bid'], FILTER_SANITIZE_NUMBER_FLOAT);
 
-    if ($user_bid_price <= $current_price){
+    if ($user_bid_price <= $current_price) {
         echo "your bid must be greater than current max bid price\n";
-    }
-    else{
+    } else {
         // INSERT NEW TRANSACTION HISTORY AND UPDATE CURRENT MAX BID PRICE
         // $insert_query = "INSERT INTO transaction_history (product_id, buyer_id, bid_price, recorded_at) VALUES (:product_id, :buyer_id, :bid_price, :recorded_at)";
         $update_query = "UPDATE auction_product SET current_maximum_bid_price=:user_bid, buyer_id=:buyerid WHERE id=:product_id";
@@ -54,46 +53,68 @@ if (isset($_POST["bid"])){
         // }
 
     }
-
 }
 
 ?>
 
+<head>
+    <meta charset="UTF-8">
+    <title>Add Product</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            font: 14px sans-serif;
+        }
+
+        .wrapper {
+            width: 360px;
+            padding: 20px;
+        }
+    </style>
+</head>
 
 <body>
-    <h2>Place your bid</h2>
+    <ul>
+        <li><a href="store.php">Back</a></li>
+    </ul>
+
+    <h1 style="text-align:center;">Place your bid</h1>
     <br><br>
-    <form action="placebid.php" method="post">
-        <table>
-            <thead>
-                <tr>
-                    <th>
-                        <?php echo implode('</th><th>', array_keys(current($result))); ?>
-                    </th>
-                    <th>
-                        Your bid
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($result as $row) : array_map('htmlentities', $row); ?>
+
+    <div class="content read">
+        <form action="placebid.php" method="post">
+            <table>
+                <thead>
                     <tr>
-                        <td>
-                            <!-- <?php
-                                foreach($row as $value){
-                                    echo "<td><input type='text' name='" . $value . "' placeholder='" . $value  . "'></td>";                                    
-                                }
-                            ?> -->
-                            <?php echo implode('</th><th>', $row); ?>
-                        </td>
-                        <td>
-                            <input type="text" placeholder="your bid" name='user-bid'>
-                        </td>
-                        <td><button type="submit" name="bid" value="<?php echo $row["id"] ?>">Bid</button></td>
+                        <th>
+                            <?php echo implode('</th><th>', array_keys(current($result))); ?>
+                        </th>
+                        <th>
+                            Your bid
+                        </th>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-            <br>
-        </table>
-    </form>
+                </thead>
+                <tbody>
+                    <?php foreach ($result as $row) : array_map('htmlentities', $row); ?>
+                        <tr>
+                            <td>
+                                <!-- <?php
+                                        foreach ($row as $value) {
+                                            echo "<td><input type='text' name='" . $value . "' placeholder='" . $value  . "'></td>";
+                                        }
+                                        ?> -->
+                                <?php echo implode('</th><th>', $row); ?>
+                            </td>
+                            <td>
+                                <input type="text" placeholder="your bid" name='user-bid'>
+                            </td>
+                            <td><button type="submit" name="bid" value="<?php echo $row["id"] ?>">Bid</button></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+                <br>
+            </table>
+        </form>
+    </div>
 </body>
