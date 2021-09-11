@@ -76,7 +76,7 @@ if (isset($_POST["bid"])) {
 
 <body>
     <ul>
-        <li><a href="store.php">Back</a></li>
+        <li><a href="openauction.php">Back</a></li>
     </ul>
 
     <h1 style="text-align:center;">Place your bid</h1>

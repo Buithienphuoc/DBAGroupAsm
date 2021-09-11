@@ -51,35 +51,37 @@ try {
 
     <h1 style="text-align:center;">My won bid</h1>
 
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <?php if (count($result) > 0) : ?>
-            <table>
-                <thead>
-                    <tr>
-                        <th>
-                            <?php
-                            echo implode('</th><th>', array_keys(current($result)));
-                            ?>
-                        </th>
-                        <th>Place bid</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($result as $row) : array_map('htmlentities', $row); ?>
+    <div class="content read">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <?php if (count($result) > 0) : ?>
+                <table>
+                    <thead>
                         <tr>
-                            <td>
+                            <th>
                                 <?php
-                                echo implode('</td><td>', $row);
+                                echo implode('</th><th>', array_keys(current($result)));
                                 ?>
-                            </td>
+                            </th>
+                            <th>Place bid</th>
                         </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        <?php else: ?>
-            You have not won any bid.
-        <?php endif; ?>
-    </form>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($result as $row) : array_map('htmlentities', $row); ?>
+                            <tr>
+                                <td>
+                                    <?php
+                                    echo implode('</td><td>', $row);
+                                    ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php else : ?>
+                You have not won any bid.
+            <?php endif; ?>
+        </form>
+    </div>
 </body>
 
 </html>
