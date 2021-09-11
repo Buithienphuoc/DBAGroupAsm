@@ -43,6 +43,8 @@ if (isset($_GET['id'])) {
 
 <?=template_header('Read')?>
 
+<a type="button" class="btn btn-danger" href="read_transaction.php">Back to transaction list</a>
+
 <div class="content update">
     <h2> Undoing transaction #<?=$transaction['id']?></h2>
     <form action="undo_transaction.php?id=<?=$transaction['id']?>" method="post">

@@ -45,6 +45,8 @@ if (isset($_GET['id'])) {
 
 <?=template_header('Read')?>
 
+<a type="button" class="btn btn-danger" href="read_product.php">Back to product list</a>
+
 <div class="content update">
     <h2> Create transaction #<?=$product['id']?></h2>
     <form action="update_product.php?id=<?=$product['id']?>" method="post">

@@ -33,6 +33,8 @@ if (isset($_GET['id'])) {
 
 <?=template_header('Read')?>
 
+<a type="button" class="btn btn-danger" href="read_customer.php">Back to customer list</a>
+
 <div class="content update">
     <h2>Update Contact #<?=$customer['id']?></h2>
     <form action="update_customer.php?id=<?=$customer['id']?>" method="post">
