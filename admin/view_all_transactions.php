@@ -49,6 +49,8 @@
 
     <?=template_header('Read')?>
 
+    <a href="admin_dashboard.php">Back to Admin dashboard</a>
+
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <label>Day start:</label>
         <input type="date" name="day_start"/>

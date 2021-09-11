@@ -25,6 +25,7 @@ $num_contacts = $pdo->query('SELECT COUNT(*) FROM auction_product')->fetchColumn
 ?>
 
 <?=template_header('Read')?>
+<a href="admin_dashboard.php">Back to Admin dashboard</a>
 
 <div class="content read">
     <h2>Products that need update status</h2>

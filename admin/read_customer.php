@@ -24,7 +24,7 @@ $num_contacts = $pdo->query('SELECT COUNT(*) FROM customer_account')->fetchColum
 ?>
 
 <?=template_header('Read')?>
-
+<a href="admin_dashboard.php">Back to Admin dashboard</a>
 <div class="content read">
     <h2>Customer lists</h2>
     <table>
