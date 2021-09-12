@@ -4,7 +4,7 @@ DBAGroupAsm Instructions
 How to setup the project:
 1. Drop the database you are using for developing the group project with your group members.
 2. Create a database from scratch and name whatever you like.
-3. Copy SQL script in "table-creations.sql" into the SQL schema that you have created. Then, execute it to create the required tables.
+3. Copy SQL script in "table-creations.sql" in the sql-scripts folder into the SQL schema that you have created. Then, execute it to create the required tables.
 4. Import all the csv files into the tables that you have created in MySQL Workbench.
 
 How to run the server:
