@@ -1,0 +1,3 @@
+INSERT INTO assignment_1.branch (branch_code, branch_name, address, hotline_number) VALUES (3753, 'Laptop/Computer', '45-4, Nagata-cho 2-chome, Chiyoda-ku, Tokyo', '+8170-162-6220');
+INSERT INTO assignment_1.branch (branch_code, branch_name, address, hotline_number) VALUES (7999, 'Camera', 'Via Belviglieri 107, Roma', '0372 0788675');
+INSERT INTO assignment_1.branch (branch_code, branch_name, address, hotline_number) VALUES (9488, 'TV', '3200 Clifford Street, Concord, California', '510-697-9932');

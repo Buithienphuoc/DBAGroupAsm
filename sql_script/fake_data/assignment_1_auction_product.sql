@@ -1,0 +1,4 @@
+INSERT INTO assignment_1.auction_product (id, product_name, minimum_price, closing_time, product_status, current_maximum_bid_price, seller_id, buyer_id) VALUES (1, 'Car', 60, '2021-09-09 00:00:00', 'Inactive', 111, 5, 1);
+INSERT INTO assignment_1.auction_product (id, product_name, minimum_price, closing_time, product_status, current_maximum_bid_price, seller_id, buyer_id) VALUES (2, 'Bike', 96, '2021-09-09 00:00:00', 'Active', 200, 6, 1);
+INSERT INTO assignment_1.auction_product (id, product_name, minimum_price, closing_time, product_status, current_maximum_bid_price, seller_id, buyer_id) VALUES (3, 'BanhXe', 85, '2021-09-09 00:00:00', 'Active', 111, 7, 1);
+INSERT INTO assignment_1.auction_product (id, product_name, minimum_price, closing_time, product_status, current_maximum_bid_price, seller_id, buyer_id) VALUES (4, 'NuocMonster', 69, '2021-09-09 00:00:00', 'Active', 3000, 1, null);
